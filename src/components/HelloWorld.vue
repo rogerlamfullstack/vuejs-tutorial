@@ -5,6 +5,8 @@ import { ref, reactive, watchEffect } from 'vue'
 defineProps<{ msg: string }>()
 
 let whyUsingReactive = 0;
+const awesome = ref(true);
+const message = ref('');
 const count = ref(0);
 const dynamicId = ref("100");
 const state = reactive({ count: 0, count2: 0 })
@@ -115,7 +117,11 @@ const fullName = computed({
 function changeName() {
   fullName.value = 'Roger Lam';
 }
-
+const myObject = reactive({
+  title: 'How to do lists in Vue',
+  author: 'Jane Doe',
+  publishedAt: '2016-04-10'
+})
 </script>
 
 
@@ -161,7 +167,26 @@ function changeName() {
     The example of RefUnwrapping: <button @click="exampleRefUnwrapping">Click here</button>
   </p>
 
-  <p>Has published books:</p>
+  <p>
+    Use v-if, v-else and v-else-if
+  </p>
+  <div>
+    <button @click="awesome = !awesome">Toggle</button>
+    <h1 v-if="awesome">Vue is awesome!
+    </h1>
+    <h1 v-else="awesome">Oh no 😢</h1>
+    <h1 v-show="awesome">V-Show</h1>
+  </div>
+
+  <p>Example of `v-for`</p>
+  <li v-for="(value, key, index) in myObject">
+    {{ index }}. {{ key }}: {{ value }}
+  </li>
+
+  <p>Form example:</p>
+  <p>Message is: {{ message }}</p>
+  <input v-model="message" placeholder="edit me" />
+  <!-- <p>Has published books:</p>
   <p>Published use computed method: {{ publishedBooksMessage }}</p>
   <p>publishedBookWithoutComputed: {{ publishedBookWithoutComputed() }}</p>
   <button @click="clickChangeAuthor">Button without Computed</button>
@@ -173,7 +198,7 @@ function changeName() {
   <br/>
   Reason change: the DOM update and it sees the publishedBookWithoutComputed() => change value to show
   </p>
-  <button @click="changeName">Change name</button>
+  <button @click="changeName">Change name</button> -->
 </template>
 
 <style scoped>
